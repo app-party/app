@@ -22,7 +22,7 @@ class GradientButton extends StatelessWidget {
     this.useFractionalSizedBox = true,
     this.pattern = GradientPatterns.orange,
   })  : assert(GradientPatterns.values.contains(pattern),
-            "Pattern must be orange or pink"),
+            "Pattern must be ${GradientPatterns.values}"),
         super(key: key);
 
   @override

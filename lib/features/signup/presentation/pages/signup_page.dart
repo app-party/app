@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:party_app/features/signup/presentation/getx/signup_page_controller.dart';
+import 'package:party_app/features/signup/presentation/pages/pin_page.dart';
 import 'package:party_app/global/widgets/gradient_button.dart';
+import 'package:party_app/global/widgets/spacing.dart';
 
 class SignupPage extends StatelessWidget {
   final _controller = Get.put(SignupPageController());
@@ -27,9 +29,12 @@ class SignupPage extends StatelessWidget {
               style: TextStyle(
                   fontSize: 24, fontFamily: "comfortaa", letterSpacing: 3),
             ),
-            SizedBox(
-              height: 32,
+            Spacing.ht,
+            Text(
+              "Bem-vindo(a) ao Party App, cadastre-se e garanta acesso as melhores festas da sua região.",
+              style: TextStyle(fontSize: 16, fontFamily: "comfortaa"),
             ),
+            Spacing.hb,
             Form(
               child: Column(
                 children: [
@@ -38,9 +43,7 @@ class SignupPage extends StatelessWidget {
                       hintText: "E-mail",
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
+                  Spacing.hn,
                   Obx(
                     () => TextFormField(
                       obscureText: !_controller.isVisible.value,
@@ -57,14 +60,12 @@ class SignupPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 32,
-                  ),
+                  Spacing.hb,
                   Container(
                     height: 75,
                     child: GradientButton(
                       text: "CONCLUIR",
-                      fn: () {},
+                      fn: () => Get.to(PinPage()),
                       pattern: GradientPatterns.pink,
                     ),
                   )

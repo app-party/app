@@ -20,8 +20,26 @@ class PartyApp extends StatelessWidget {
           cursorColor: black,
         ),
         textTheme: TextTheme(
+          headline1: TextStyle(
+            fontSize: 12,
+            fontFamily: "nunito",
+            color: black,
+          ),
+          headline2: TextStyle(
+            fontSize: 14,
+            fontFamily: "nunito",
+            color: black,
+          ),
+          headline3: TextStyle(
+            fontSize: 16,
+            fontFamily: "roboto",
+            color: black.withOpacity(.8),
+          ),
           headline6: TextStyle(
-              fontSize: 24, fontFamily: "comfortaa", letterSpacing: 3),
+            fontSize: 24,
+            fontFamily: "comfortaa",
+            letterSpacing: 3,
+          ),
         ),
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(

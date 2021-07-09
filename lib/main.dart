@@ -19,6 +19,10 @@ class PartyApp extends StatelessWidget {
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: black,
         ),
+        textTheme: TextTheme(
+          headline6: TextStyle(
+              fontSize: 24, fontFamily: "comfortaa", letterSpacing: 3),
+        ),
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: black, width: 1),

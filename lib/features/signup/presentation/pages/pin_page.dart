@@ -30,8 +30,7 @@ class PinPage extends StatelessWidget {
           children: [
             Text(
               "Validar conta",
-              style: TextStyle(
-                  fontSize: 24, fontFamily: "comfortaa", letterSpacing: 3),
+              style: Get.textTheme.headline6,
             ),
             Spacing.ht,
             Text(

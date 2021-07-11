@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:party_app/features/home/presentation/pages/home_page.dart';
 import 'package:party_app/features/login/presentation/getx/login_page_controller.dart';
+import 'package:party_app/global/routes/route_names.dart';
 import 'package:party_app/global/widgets/gradient_button.dart';
 import 'package:party_app/global/widgets/spacing.dart';
 
@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
                   Container(
                     height: 75,
                     child: GradientButton(
-                        text: "ENTRAR", fn: () => Get.to(HomePage())),
+                        text: "ENTRAR", fn: () => Get.toNamed(RouteNames.HOME)),
                   )
                 ],
               ),

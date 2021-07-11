@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:party_app/features/landing/presentation/pages/landing_page.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:party_app/global/routes/route_names.dart';
 
-void main() {
+import 'global/routes/route_pages.dart';
+
+void main() async {
+  await GetStorage.init();
+
   runApp(PartyApp());
 }
 
@@ -14,7 +19,8 @@ class PartyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: LandingPage(),
+      getPages: RoutePages.pagesRoute,
+      initialRoute: RouteNames.SPLASH,
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: black,

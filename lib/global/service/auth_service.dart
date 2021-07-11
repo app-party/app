@@ -42,7 +42,7 @@ class AuthStorage extends OAuthStorage {
   final accessTokenKey = 'accessToken';
   final refreshTokenKey = 'refreshToken';
 
-  final GetStorage _storage = GetStorage("token");
+  final GetStorage _storage = GetStorage();
   // final ProfileBloc _profileBloc = BlocProvider.getBloc<ProfileBloc>();
 
   @override

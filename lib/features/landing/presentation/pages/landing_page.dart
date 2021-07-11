@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:party_app/features/login/presentation/pages/login_page.dart';
-import 'package:party_app/features/signup/presentation/pages/signup_page.dart';
+import 'package:party_app/global/routes/route_names.dart';
 import 'package:party_app/global/widgets/gradient_button.dart';
 import 'package:party_app/global/widgets/spacing.dart';
 
@@ -43,7 +42,7 @@ class LandingPage extends StatelessWidget {
               widthFactor: 1,
               child: GradientButton(
                 text: "ENTRAR",
-                fn: () => Get.to(LoginPage()),
+                fn: () => Get.toNamed(RouteNames.LOGIN),
               ),
             ),
           ),
@@ -54,7 +53,7 @@ class LandingPage extends StatelessWidget {
               child: GradientButton(
                 text: "REGISTRE-SE",
                 pattern: GradientPatterns.pink,
-                fn: () => Get.to(SignupPage()),
+                fn: () => Get.toNamed(RouteNames.SIGNUP),
               ),
             ),
           ),

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:oauth_dio/oauth_dio.dart';
@@ -92,7 +90,9 @@ class HttpDataSource {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-        return Left(ServerFailure(err.response!.data["message"]));
+        print(err.message);
+        print(e);
+        return Left(ServerFailure(err.message));
       }
       return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
     }

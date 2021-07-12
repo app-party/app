@@ -30,9 +30,10 @@ class HttpDataSource {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-        return Left(ServerFailure(err.message));
+        return Left(
+            ServerFailure(_listfy<String>(err.response!.data["errors"])));
       }
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 
@@ -47,13 +48,10 @@ class HttpDataSource {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-
-        if (err.response!.statusCode == 400 &&
-            err.response!.data["message"] == "Has no quiz found for you") {
-          return Right(false);
-        }
+        return Left(
+            ServerFailure(_listfy<String>(err.response!.data["errors"])));
       }
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 
@@ -63,17 +61,17 @@ class HttpDataSource {
       final response = await client.get(path, queryParameters: query);
 
       if (response.statusCode == 200 && response.statusCode! < 400) {
-        return Right(_listfy(response.data));
+        return Right(_listfy<Map<String, dynamic>>(response.data));
       }
       return Left(
           ServerFailure(FailuresMessages.HTTP_FAILUES[response.statusCode!]));
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-
-        return Left(ServerFailure(err.response!.data["message"]));
+        return Left(
+            ServerFailure(_listfy<String>(err.response!.data["errors"])));
       }
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 
@@ -90,17 +88,18 @@ class HttpDataSource {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-        print(err.message);
-        print(e);
-        return Left(ServerFailure(err.message));
+        return Left(
+            ServerFailure(_listfy<String>(err.response!.data["errors"])));
       }
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 
   Future<Either<Failure, dynamic>> update(Map<String, dynamic> data,
       {String path = ''}) async {
     try {
+      print("${client.options.baseUrl} -- $path");
+      print(data);
       final response = await client.patch(path, data: data);
 
       if (response.statusCode! >= 200 && response.statusCode! < 400) {
@@ -112,9 +111,10 @@ class HttpDataSource {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-        return Left(ServerFailure(err.message));
+        return Left(
+            ServerFailure(_listfy<String>(err.response!.data["errors"])));
       }
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 
@@ -131,14 +131,15 @@ class HttpDataSource {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-        return Left(ServerFailure(err.message));
+        return Left(
+            ServerFailure(_listfy<String>(err.response!.data["errors"])));
       }
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 
-  List<Map<String, dynamic>> _listfy(List l) {
-    List<Map<String, dynamic>> list = <Map<String, dynamic>>[];
+  List<T> _listfy<T>(List l) {
+    List<T> list = <T>[];
     l.forEach((e) => list.add(e));
 
     return list;

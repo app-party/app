@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:party_app/features/signup/presentation/getx/signup_page_controller.dart';
+import 'package:party_app/global/api/api.dart';
 import 'package:party_app/global/widgets/gradient_button.dart';
 import 'package:party_app/global/widgets/spacing.dart';
 
@@ -74,6 +75,8 @@ class SignupPage extends StatelessWidget {
                           return "O campo senha não pode estar vazio";
                         else if (value != _controller.confirmPassword.text)
                           return "As senhas não coincidem";
+                        else if (API.ISPROD && value.length < 6)
+                          return "A senha deve conter 6 caracteres ou mais";
                         return null;
                       },
                     ),

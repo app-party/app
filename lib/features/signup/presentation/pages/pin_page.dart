@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:party_app/features/signup/presentation/getx/pin_page_controller.dart';
+import 'package:party_app/global/widgets/dialog_library.dart';
 import 'package:party_app/global/widgets/gradient_button.dart';
 import 'package:party_app/global/widgets/spacing.dart';
-import 'package:party_app/global/widgets/success_dialog.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
 class PinPage extends StatelessWidget {
   final _controller = Get.put(PinPageController());
+  final _form = GlobalKey<FormState>();
 
   PinPage({Key? key}) : super(key: key);
 
@@ -43,28 +44,55 @@ class PinPage extends StatelessWidget {
                 style: TextStyle(fontSize: 16, fontFamily: "comfortaa"),
               ),
               Spacing.hb,
-              PinPut(
-                fieldsCount: 6,
-                submittedFieldDecoration: _pinPutDecoration.copyWith(
-                  border: Border.all(width: 2),
-                ),
-                selectedFieldDecoration: _pinPutDecoration,
-                followingFieldDecoration: _pinPutDecoration.copyWith(
-                  border: Border.all(width: 2),
-                ),
-                inputDecoration: InputDecoration(
-                  enabledBorder: InputBorder.none,
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  counter: Container(),
+              Form(
+                key: _form,
+                child: Column(
+                  children: [
+                    PinPut(
+                      controller: _controller.pinController,
+                      fieldsCount: 6,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          DialogLibrary.error(
+                              ["O código de confirmação não pode estar vazio"]);
+                          return "O código de confirmação não pode estar vazio";
+                        } else if (value.length < 6) {
+                          DialogLibrary.error(
+                              ["O código de confirmação deve ter 6 digitos"]);
+                          return "O código de confirmação deve ter 6 digitos";
+                        }
+                        return null;
+                      },
+                      submittedFieldDecoration: _pinPutDecoration.copyWith(
+                        border: Border.all(width: 2),
+                      ),
+                      selectedFieldDecoration: _pinPutDecoration,
+                      followingFieldDecoration: _pinPutDecoration.copyWith(
+                        border: Border.all(width: 2),
+                      ),
+                      inputDecoration: InputDecoration(
+                        enabledBorder: InputBorder.none,
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        counter: Container(),
+                        errorStyle: TextStyle(
+                          color: Colors.red,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    Spacing.hb,
+                    GradientButton(
+                      text: "VALIDAR",
+                      fn: () {
+                        if (_form.currentState!.validate())
+                          _controller.enableUser();
+                      },
+                      pattern: GradientPatterns.pink,
+                    ),
+                  ],
                 ),
               ),
-              Spacing.hb,
-              GradientButton(
-                text: "VALIDAR",
-                fn: () => Get.dialog(SuccessDialog()),
-                pattern: GradientPatterns.pink,
-              )
             ],
           ),
         ),

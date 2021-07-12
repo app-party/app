@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:party_app/features/signup/adapters/dto/create_user_request.dart';
+import 'package:party_app/features/signup/adapters/dto/enable_user_request.dart';
 import 'package:party_app/features/signup/datasourcers/signup_data_source.dart';
+import 'package:party_app/features/signup/domain/entities/pin_code.dart';
 import 'package:party_app/features/signup/domain/entities/signup_user.dart';
 import 'package:party_app/features/signup/ports/repositories/signup_repository.dart';
 import 'package:party_app/global/error/exceptions.dart';
@@ -20,7 +22,24 @@ class SignupRepositoryAdapter extends SignupRepository {
 
       return Right((response as Right).value["id"]);
     } on ServerException {
-      return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> enableUser(PinCode pin) async {
+    try {
+      final response = await dataSource.update(EnableUserRequest.toMap(pin),
+          path: "/enable-by-token");
+
+      if (response.isLeft()) {
+        return Left((response as Left).value);
+      }
+
+      print((response as Right).value);
+      return Right((response as Right).value);
+    } on ServerException {
+      return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
   }
 }

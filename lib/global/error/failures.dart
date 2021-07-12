@@ -7,7 +7,7 @@ class RequiredFailure extends Failure {
 }
 
 class ServerFailure extends Failure {
-  final String? message;
+  final List<String?> message;
 
   ServerFailure(this.message);
 }

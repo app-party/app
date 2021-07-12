@@ -7,6 +7,7 @@ import 'package:party_app/features/signup/adapters/singup_repository_adapter.dar
 import 'package:party_app/features/signup/domain/entities/signup_user.dart';
 import 'package:party_app/features/signup/usecases/create_user_us.dart';
 import 'package:party_app/global/routes/route_names.dart';
+import 'package:party_app/global/widgets/dialog_library.dart';
 
 class SignupPageController extends GetxController {
   final CreateUserUS _createUserUS = CreateUserUS(SignupRepositoryAdapter());
@@ -25,15 +26,7 @@ class SignupPageController extends GetxController {
       isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
 
   create() async {
-    Get.dialog(
-        Center(
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: CircularProgressIndicator(),
-          ),
-        ),
-        barrierDismissible: false);
+    DialogLibrary.staticLoading;
 
     final response = await _createUserUS(
       SignupUser(
@@ -44,7 +37,8 @@ class SignupPageController extends GetxController {
     );
 
     if (response.isLeft()) {
-      print((response as Left).value.message);
+      Get.back();
+      DialogLibrary.error((response as Left).value.message);
       return;
     }
 

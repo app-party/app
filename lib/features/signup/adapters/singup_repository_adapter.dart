@@ -18,7 +18,7 @@ class SignupRepositoryAdapter extends SignupRepository {
         return Left((response as Left).value);
       }
 
-      return Right((response as Right).value);
+      return Right((response as Right).value["id"]);
     } on ServerException {
       return Left(ServerFailure(FailuresMessages.SERVER_CONNECTION_FAILURE));
     }

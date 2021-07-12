@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:oauth_dio/oauth_dio.dart';
+import 'package:party_app/features/login/domain/entities/login_user.dart';
 import 'package:party_app/global/api/api.dart';
 
 class AuthService {
@@ -15,7 +16,7 @@ class AuthService {
     // client.interceptors.add(EHInterceptor());
 
     oauth = OAuth(
-        tokenUrl: "${API.path}oauth/token",
+        tokenUrl: "${API.path}login",
         clientId: "eduqhub_mobile_professor",
         clientSecret:
             "\$2a\$10\$4CvdsdqhNu/A1ERtlyqOYeSb@UjL7xCbPclZ7k3o6HvWw0oU3v1u",
@@ -30,10 +31,10 @@ class AuthService {
         });
   }
 
-  Future<OAuthToken> login(user, pass) async {
+  Future<OAuthToken> login(LoginUser user) async {
     return await oauth.requestTokenAndSave(PasswordGrant(
-      username: user,
-      password: pass,
+      username: user.username,
+      password: user.password,
     ));
   }
 }
@@ -92,7 +93,6 @@ class GoogleGrantType extends OAuthGrantType {
 
   @override
   RequestOptions handle(RequestOptions request) {
-    // token.split("_").forEach((e) => print("_$e"));
     request.data = "grant_type=google&id_token=$token";
     return request;
   }
@@ -105,7 +105,6 @@ class AppleGrantType extends OAuthGrantType {
 
   @override
   RequestOptions handle(RequestOptions request) {
-    // token.split("_").forEach((e) => print("_$e"));
     request.data = "grant_type=apple&id_token=$token";
     return request;
   }

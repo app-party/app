@@ -6,12 +6,20 @@ class SplashPageController extends GetxController {
   final GetStorage _storage = GetStorage();
 
   SplashPageController() {
-    _hasSignupAttempt();
+    _alreadySignedIn();
   }
 
-  _hasSignupAttempt() async {
-    await Future.delayed(Duration(seconds: 3));
+  _alreadySignedIn() async {
+    await Future.delayed(Duration(seconds: 2));
 
+    final token = _storage.read<String>("accessToken");
+
+    if (token == null || token.isEmpty) return _hasSignupAttempt();
+
+    Get.offNamed(RouteNames.HOME);
+  }
+
+  _hasSignupAttempt() {
     final user = _storage.read<String>("username");
 
     if (user == null || user.isEmpty) return Get.offNamed(RouteNames.LANDING);

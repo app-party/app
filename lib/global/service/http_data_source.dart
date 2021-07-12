@@ -1,10 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:oauth_dio/oauth_dio.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:party_app/global/api/api.dart';
 import 'package:party_app/global/error/failures.dart';
-
-import 'auth_service.dart';
 
 class HttpDataSource {
   final Dio client;
@@ -13,7 +11,7 @@ class HttpDataSource {
     this.client.options = BaseOptions(
       baseUrl: "${API.path}$route",
     );
-    this.client.interceptors.add(BearerInterceptor(AuthService().oauth));
+    this.client.interceptors.add(_AuthInterceptor());
   }
 
   Future<Either<Failure, Map<String, dynamic>?>> findById(
@@ -98,8 +96,6 @@ class HttpDataSource {
   Future<Either<Failure, dynamic>> update(Map<String, dynamic> data,
       {String path = ''}) async {
     try {
-      print("${client.options.baseUrl} -- $path");
-      print(data);
       final response = await client.patch(path, data: data);
 
       if (response.statusCode! >= 200 && response.statusCode! < 400) {
@@ -143,5 +139,21 @@ class HttpDataSource {
     l.forEach((e) => list.add(e));
 
     return list;
+  }
+}
+
+class _AuthInterceptor extends Interceptor {
+  /// Add Bearer token to Authorization Header
+  @override
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handle) async {
+    final GetStorage _storage = GetStorage();
+    final token = _storage.read<String>("accessToken");
+
+    if (token != null) {
+      options.headers.addAll({"Authorization": "Bearer $token"});
+    }
+
+    return handle.next(options);
   }
 }

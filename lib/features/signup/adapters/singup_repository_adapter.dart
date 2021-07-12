@@ -35,8 +35,6 @@ class SignupRepositoryAdapter extends SignupRepository {
       if (response.isLeft()) {
         return Left((response as Left).value);
       }
-
-      print((response as Right).value);
       return Right((response as Right).value);
     } on ServerException {
       return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));

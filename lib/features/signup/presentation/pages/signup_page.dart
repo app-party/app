@@ -103,8 +103,6 @@ class SignupPage extends StatelessWidget {
                         if (value == null || value.isEmpty)
                           return "O campo confirmar senha não pode estar vazio";
                         else if (value != _controller.password.text) {
-                          print(value);
-                          print(_controller.password.text);
                           return "As senhas não coincidem";
                         }
                         return null;

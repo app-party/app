@@ -8,6 +8,7 @@ class GradientButton extends StatelessWidget {
   final GradientPatterns pattern;
   final VoidCallback fn;
   final bool useFractionalSizedBox;
+  final EdgeInsetsGeometry? padding;
 
   final Map<GradientPatterns, List<Color>> colorPatterns = {
     GradientPatterns.orange: [Color(0xFFEE4F43), Color(0xFFFAB638)],
@@ -22,6 +23,7 @@ class GradientButton extends StatelessWidget {
     this.height = 75,
     this.useFractionalSizedBox = true,
     this.pattern = GradientPatterns.orange,
+    this.padding,
   })  : assert(GradientPatterns.values.contains(pattern),
             "Pattern must be ${GradientPatterns.values}"),
         super(key: key);
@@ -30,6 +32,7 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
+      padding: padding,
       child: ElevatedButton(
         onPressed: fn,
         child: buildFractionalSizedBox(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:party_app/global/routes/route_names.dart';
+import 'package:party_app/global/widgets/bottom_menu.dart';
 import 'package:party_app/global/widgets/spacing.dart';
 
 class HomePage extends StatelessWidget {
@@ -76,51 +78,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 32,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.liquor_rounded,
-                color: Color(0xFF111111),
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Ink(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  gradient: LinearGradient(
-                      colors: [Color(0xFFEE4F43), Color(0xFFEE5075)]),
-                ),
-                child: Icon(
-                  Icons.home_rounded,
-                  color: Colors.white,
-                ),
-              ),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.face_rounded,
-                color: Color(0xFF111111),
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomMenu(route: RouteNames.HOME),
     );
   }
 

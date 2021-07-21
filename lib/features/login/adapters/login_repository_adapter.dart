@@ -22,16 +22,10 @@ class LoginRepositoryAdapter extends LoginRepository {
     } catch (e) {
       if (e is DioError) {
         DioError err = e;
-        return Left(ServerFailure(_listfy(err.response!.data["errors"])));
+        return Left(
+            ServerFailure(toList<String>(err.response!.data["errors"])));
       }
       return Left(ServerFailure([FailuresMessages.SERVER_CONNECTION_FAILURE]));
     }
-  }
-
-  List<T> _listfy<T>(List l) {
-    List<T> list = <T>[];
-    l.forEach((e) => list.add(e));
-
-    return list;
   }
 }

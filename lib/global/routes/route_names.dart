@@ -4,5 +4,6 @@ class RouteNames {
   static const String SIGNUP = "signup";
   static const String PIN = "pin";
   static const String SPLASH = "splash";
-  static const String HOME = "HOME";
+  static const String HOME = "home";
+  static const String PROFILE = "profile";
 }

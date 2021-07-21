@@ -41,7 +41,7 @@ class EditProfilePage extends StatelessWidget {
               Spacing.hb,
               GradientButton(
                 text: "SALVAR",
-                fn: () {},
+                fn: _controller.updateProfile,
                 pattern: GradientPatterns.blue,
                 height: 50,
               ),

@@ -31,6 +31,19 @@ class DialogLibrary {
         ),
       );
 
+  static Future get success => Get.dialog(
+        _defaultDialog(
+          icon: Icon(
+            Icons.done,
+            size: 70,
+            color: Colors.green,
+          ),
+          messages: ["Tudo certo"],
+          btnLabel: "VOLTAR",
+          fn: () => Get.back(),
+        ),
+      );
+
   static get userEnabled => Get.dialog(
         _defaultDialog(
           icon: Icon(

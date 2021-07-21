@@ -47,9 +47,14 @@ class ProfilePage extends StatelessWidget {
                     Spacing.hb,
                     GradientButton(
                       text: "EDITAR INFORMAÇÕES",
-                      fn: () {
-                        Get.toNamed(RouteNames.EDIT_PROFILE,
+                      fn: () async {
+                        final updated = await Get.toNamed(
+                            RouteNames.EDIT_PROFILE,
                             arguments: _controller.profile!);
+
+                        if (updated != null && updated) {
+                          _controller.init();
+                        }
                       },
                       pattern: GradientPatterns.blue,
                       height: 50,

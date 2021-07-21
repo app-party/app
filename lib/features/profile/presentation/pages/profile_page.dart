@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:party_app/features/profile/presentation/getx/profile_page_controller.dart';
-import 'package:party_app/global/extensions/string_initials.dart';
+import 'package:party_app/features/profile/presentation/widgets/profile_image_widget.dart';
 import 'package:party_app/global/routes/route_names.dart';
 import 'package:party_app/global/widgets/bottom_menu.dart';
 import 'package:party_app/global/widgets/gradient_button.dart';
@@ -26,35 +26,15 @@ class ProfilePage extends StatelessWidget {
 
           return SafeArea(
             child: SingleChildScrollView(
+              padding: EdgeInsets.all(16),
               child: Center(
                 child: Column(
                   children: [
                     Spacing.hb,
-                    if (_controller.profile!.images == null ||
-                        _controller.profile!.images!.isEmpty)
-                      Container(
-                        width: 128,
-                        height: 128,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF111111),
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: Center(
-                            child: Text(
-                          _controller.profile!.name != null
-                              ? _controller.profile!.name!.initials()
-                              : "",
-                          style: Get.textTheme.headline6!.copyWith(
-                            color: Colors.white,
-                          ),
-                        )),
-                      )
-                    else
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            _controller.profile!.images!.first.url),
-                        radius: 64,
-                      ),
+                    ProfileImageWidget(
+                      image: _controller.profile!.images!.first,
+                      name: _controller.profile!.name,
+                    ),
                     Spacing.hb,
                     Text(
                       _controller.profile!.name ?? "Não informado",
@@ -67,10 +47,12 @@ class ProfilePage extends StatelessWidget {
                     Spacing.hb,
                     GradientButton(
                       text: "EDITAR INFORMAÇÕES",
-                      fn: () {},
+                      fn: () {
+                        Get.toNamed(RouteNames.EDIT_PROFILE,
+                            arguments: _controller.profile!);
+                      },
                       pattern: GradientPatterns.blue,
                       height: 50,
-                      padding: EdgeInsets.symmetric(horizontal: 40),
                     ),
                   ],
                 ),
@@ -83,3 +65,5 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+
+class EDIT_PROFILE {}

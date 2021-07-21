@@ -6,4 +6,5 @@ class RouteNames {
   static const String SPLASH = "splash";
   static const String HOME = "home";
   static const String PROFILE = "profile";
+  static const String EDIT_PROFILE = "edit_profile";
 }

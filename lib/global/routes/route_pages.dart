@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:party_app/features/home/presentation/pages/home_page.dart';
 import 'package:party_app/features/landing/presentation/pages/landing_page.dart';
 import 'package:party_app/features/login/presentation/pages/login_page.dart';
+import 'package:party_app/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:party_app/features/profile/presentation/pages/profile_page.dart';
 import 'package:party_app/features/signup/presentation/pages/pin_page.dart';
 import 'package:party_app/features/signup/presentation/pages/signup_page.dart';
@@ -17,5 +18,6 @@ class RoutePages {
     GetPage(name: RouteNames.SIGNUP, page: () => SignupPage()),
     GetPage(name: RouteNames.SPLASH, page: () => SplashPage()),
     GetPage(name: RouteNames.PROFILE, page: () => ProfilePage()),
+    GetPage(name: RouteNames.EDIT_PROFILE, page: () => EditProfilePage()),
   ];
 }
